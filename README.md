@@ -91,3 +91,6 @@ Future enhancements:
 
 ## Acknowledgements
 Built with [Flask](https://flask.palletsprojects.com/) and [pytest](https://pytest.org/).
+## Git Workflow
+The project is maintained using Git and GitHub.
+A feature branch is used for changes before merging them into the main branch.
