@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Attendance report</h2>
+<table>
+  <tr><th>Reg. No.</th><th>Name</th><th>Present</th><th>Total days</th><th>Percentage</th></tr>
+  {% for r in report %}
+  <tr>
+    <td>{{ r.reg_no }}</td><td>{{ r.name }}</td><td>{{ r.present }}</td><td>{{ r.total }}</td>
+    <td>{% if r.percent is none %}-{% else %}<span class="{{ 'low' if r.percent < 75 else '' }}">{{ r.percent }}%</span>{% endif %}</td>
+  </tr>
+  {% else %}<tr><td colspan="5">No data.</td></tr>
+  {% endfor %}
+</table>
+<p><small>Percentages below 75% are highlighted.</small></p>
+<a href="{{ url_for('campus.attendance') }}">Back</a>
+{% endblock %}

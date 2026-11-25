@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Room booking</h2>
+<form method="post" class="inline-form">
+  <select name="room_id" required>
+    <option value="">Choose room</option>
+    {% for r in rooms %}<option value="{{ r.id }}">{{ r.name }} (cap. {{ r.capacity }})</option>{% endfor %}
+  </select>
+  <input name="booked_by" placeholder="Booked by" required>
+  <input name="purpose" placeholder="Purpose" required>
+  <input type="date" name="date" required>
+  <input type="time" name="start_time" required>
+  <input type="time" name="end_time" required>
+  <button>Book</button>
+</form>
+<table>
+  <tr><th>Room</th><th>Date</th><th>Time</th><th>Booked by</th><th>Purpose</th><th></th></tr>
+  {% for b in bookings %}
+  <tr>
+    <td>{{ b.room_name }}</td><td>{{ b.date }}</td><td>{{ b.start_time }}-{{ b.end_time }}</td>
+    <td>{{ b.booked_by }}</td><td>{{ b.purpose }}</td>
+    <td><form method="post" action="{{ url_for('campus.delete_booking', booking_id=b.id) }}">
+        <button class="danger">Cancel</button></form></td>
+  </tr>
+  {% else %}<tr><td colspan="6">No bookings yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

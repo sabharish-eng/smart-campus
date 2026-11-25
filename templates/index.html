@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="cards">
+  <div class="card"><strong>{{ counts.students }}</strong><span>Students</span></div>
+  <div class="card"><strong>{{ counts.rooms }}</strong><span>Rooms</span></div>
+  <div class="card"><strong>{{ counts.bookings }}</strong><span>Bookings</span></div>
+  <div class="card"><strong>{{ counts.notices }}</strong><span>Notices</span></div>
+</div>
+<h3>Latest notices</h3>
+{% for n in latest %}
+  <article class="notice"><h4>{{ n.title }}</h4><p>{{ n.body }}</p><small>{{ n.created_at }}</small></article>
+{% else %}
+  <p>No notices yet.</p>
+{% endfor %}
+{% endblock %}

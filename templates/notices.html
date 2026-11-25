@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Notice board</h2>
+<form method="post" class="stack-form">
+  <input name="title" placeholder="Title" maxlength="100" required>
+  <textarea name="body" placeholder="Notice text" rows="3" required></textarea>
+  <button>Post notice</button>
+</form>
+{% for n in notices %}
+<article class="notice">
+  <h4>{{ n.title }}</h4><p>{{ n.body }}</p><small>{{ n.created_at }}</small>
+  <form method="post" action="{{ url_for('campus.delete_notice', notice_id=n.id) }}">
+    <button class="danger">Delete</button></form>
+</article>
+{% else %}<p>No notices yet.</p>
+{% endfor %}
+{% endblock %}

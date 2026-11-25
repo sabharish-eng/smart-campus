@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Attendance</h2>
+<form method="get" class="inline-form">
+  <label>Date <input type="date" name="date" value="{{ day }}"></label>
+  <button>Load</button>
+  <a href="{{ url_for('campus.attendance_report') }}">View report</a>
+</form>
+<form method="post">
+  <input type="hidden" name="date" value="{{ day }}">
+  <table>
+    <tr><th>Reg. No.</th><th>Name</th><th>Present</th><th>Absent</th></tr>
+    {% for s in students %}
+    {% set current = marked.get(s.id, 'Present') %}
+    <tr>
+      <td>{{ s.reg_no }}</td><td>{{ s.name }}</td>
+      <td><input type="radio" name="status_{{ s.id }}" value="Present" {% if current == 'Present' %}checked{% endif %}></td>
+      <td><input type="radio" name="status_{{ s.id }}" value="Absent" {% if current == 'Absent' %}checked{% endif %}></td>
+    </tr>
+    {% else %}<tr><td colspan="4">Add students first.</td></tr>
+    {% endfor %}
+  </table>
+  {% if students %}<button>Save attendance</button>{% endif %}
+</form>
+{% endblock %}
